@@ -10,6 +10,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+    <!--Fire base secment-->
     <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
@@ -53,7 +57,7 @@
                     <div class="column">
                         <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
                             <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content">ใบระกา 2 items<br>ใช้งานล่าสุดเมื่อ 2 วันที่แล้ว</p>
+                            <p class="content" id="amount-item">ใบระกา</p>
                         </div>
                     </div>
 
@@ -160,11 +164,11 @@
 
 
                 </div>
-                <div class="column">
-                    <div class="ui animated button" tabindex="0">
-                        <div class="visible content" onclick="mockupClick('list-bag','selection')">Back</div>
+                <div class="column" >
+                    <div class="ui animated button" tabindex="0" onclick="mockupClick('list-bag','selection')">
+                        <div class="visible content" >Back</div>
                         <div class="hidden content">
-                            <i class="left arrow icon" onclick="mockupClick('list-bag','selection')"></i>
+                            <i class="left arrow icon"></i>
                         </div>
                     </div>
                 </div>
@@ -238,12 +242,12 @@
 <script>
     var thing_list = [];
     var i = 0;
-
+    var bag = "ใบระกา";
 
     function show() {
         var e = document.getElementById("meow");
         var strUser = e.options[e.selectedIndex].value;
-        var bag = "ใบระกา";
+
         var f = document.querySelector('input[name=fruit]:checked').value;
         thing_list.push(strUser);
 
@@ -266,15 +270,15 @@
                     </div>`
 
         } else if (f == "yellow") {
-            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted yellow segment" ondblclick="deleteList(${i-1})">
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted yellow segment" ondblclick='deleteList(this)'>
                         <div class="column">
                             <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
                         </div>
                         <div class="column">
-                            <p style="text-align: left;padding-left: 1em;"></p>
+                            <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
                         </div>
                     </div>`
-            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted yellow segment" ondblclick='deleteList(this)'>
                         <div class="column">
                             <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
                         </div>
@@ -283,15 +287,15 @@
                         </div>
                     </div>`
         } else if (f == "green") {
-            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted green segment">
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted green segment" ondblclick='deleteList(this)'>
                         <div class="column">
                             <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
                         </div>
                         <div class="column">
-                            <p style="text-align: left;padding-left: 1em;"></p>
+                            <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
                         </div>
                     </div>`
-            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted green segment" ondblclick='deleteList(this)'>
                         <div class="column">
                             <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
                         </div>
@@ -300,9 +304,12 @@
                         </div>
                     </div>`
         }
+        i++;
+        document.getElementById("amount-item").innerHTML = `ใบระกามี ${i} item`
         alert("Add Complete!");
         mockupClick('add-list', 'list-bag')
-        i++;
+
+
     }
 
     function deleteList(index) {
