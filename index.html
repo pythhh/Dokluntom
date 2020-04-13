@@ -130,17 +130,63 @@
                 </div>
 
             </div>
+            <div id="list-bag">
+                <div class="column">
+                    <div class="ui two column grid">
+                        <div class="twelve wide column">
+                            
+                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Item List</p>
+                        </div>
+                        <div class="four wide column">
+                            <button class="circular ui icon button black" onclick="mockupClick('list-bag, add-list')">
+                                <i class="icon add white"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="ui two column grid secondary inverted red segment">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">แว่นตา</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">อยู่ในใบระกา</p>
+                        </div>
+                    </div>
+                    <div class="ui two column grid secondary inverted yellow segment">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">ขนมปัง</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">อยู่ในใบระกา</p>
+                        </div>
+                    </div>
+                    <div class="ui two column grid secondary inverted green segment">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">ผ้าอนามัย</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">อยู่ในเพนกวิน</p>
+                        </div>
+                    </div>
+                    <br>
+                   
+
+                </div>
+
+
+
+            </div>
+            <div id="add-list"></div>
 
         </div>
         </div>
         <footer>
-            <nav>
+            <nav id="footer">
                 <div class="ui two column grid">
-                    <div class="column">
-                        <i class="black home icon"></i>
+                    <div class="column" onclick="clickIcon('home', 'list'), mockupClick('list-bag', 'page-intro')">
+                        <i class="black home icon"  id="home"></i>
                     </div>
-                    <div class="column" data-inverted="" data-tooltip="Coming soon" data-position="top center">
-                        <i class="white list icon"></i>
+                    <div class="column" onclick="clickIcon('list', 'home'),mockupClick('page-intro', 'list-bag')">
+                        <i class="white list icon" id="list"></i>
                     </div>
 
                 </div>
@@ -153,8 +199,9 @@
             document.querySelector('#' + pageToShow).style.display = "block";
         }
 
-        function notiChange() {
-
+        function clickIcon(changeToBlack, changeToWhite) {
+            document.querySelector('#' + changeToBlack).classList.add("black");
+            document.querySelector('#' + changeToWhite).classList.remove("black");
         }
     </script>
 </body>

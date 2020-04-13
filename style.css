@@ -38,7 +38,9 @@ nav {
 }
 #page-desc,
 #page-desc2,
-#addbag {
+#addbag,
+#list-bag,
+#add-bag {
     display: none;
 }
 .page {
