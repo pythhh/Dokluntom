@@ -10,6 +10,12 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -20,25 +26,54 @@
         <div class='mobile-container'>
             <nav style="margin-bottom: .5em;">NOTIBAG</nav>
             <br>
-            <div id="page-intro" class="ui one column grid">
-                <div class="column">
-                    <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                        <i class="circular big inverted yellow suitcase icon"></i>
-                        <p class="content">ใบระกา 2 items<br>ใช้งานล่าสุดเมื่อ 2 วันที่แล้ว</p>
+            <div id="selection">
+                <div class="ui two column grid">
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('selection','page-intro')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content">Bag</p>
+                        </div>
+
+                    </div>
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('selection','list-bag')">
+                            <i class="circular big inverted yellow list icon"></i>
+                            <p class="content">Item list</p>
+                        </div>
+                    </div>
+                    <!-- <div class="column">
+                        <input type="text" id="nameRes">
+                        <button onclick="upload()">แง</button>
+                    </div> -->
+                </div>
+            </div>
+            <div id="page-intro">
+
+                <div class="ui one column grid">
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content">ใบระกา 2 items<br>ใช้งานล่าสุดเมื่อ 2 วันที่แล้ว</p>
+                        </div>
+                    </div>
+
+
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('page-intro','addbag')">
+                            <i class="circular big inverted yellow shopping plus icon"></i>
+                            <p class="content">เพิ่มกระเป๋า</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui animated button" tabindex="0">
+                            <div class="visible content" onclick="mockupClick('page-intro','selection')">Back</div>
+                            <div class="hidden content" onclick="mockupClick('page-intro','selection')">
+                                <i class="left arrow icon" onclick="notiChange()"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="ui segment" onclick="mockupClick('page-intro','page-desc2')">
-                        <i class="circular big inverted yellow shopping bag icon"></i>
-                        <p class="content">เพนกวิน 1 items</p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="ui segment" onclick="mockupClick('page-intro','addbag')">
-                        <i class="circular big inverted yellow shopping plus icon"></i>
-                        <p class="content">เพิ่มกระเป๋า</p>
-                    </div>
-                </div>
+
             </div>
             <div id="page-desc">
                 <div class="ui two column grid">
@@ -48,24 +83,30 @@
                         </div>
                     </div>
                     <div class="column">
-                        <div class="ui inverted segment">
+                        <div class="ui inverted segment secondary">
                             <p>ใบระกา</p>
                         </div>
                         <p>ช็อปปิ้งเซนเซอร์แพนดาแอดมิชชั่นจิ๊กซอว์</p>
                     </div>
                 </div>
-                <h3 class="ui header" style="text-align: left;padding-left: 1em;">List</h3>
                 <div class="ui">
                     <div class="column">
-                        <div class="ui secondary inverted red segment">
-                            <p>แว่นตา<i class="bell outline icon" style="padding-left: 22em;"></i></p>
+                        <div class="ui one column grid">
+                            <div class="column">
+
+                                <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">
+                                    List</h3>
+                            </div>
+
                         </div>
-                        <div class="ui secondary inverted yellow segment">
-                            <p>ขนมปัง<i class="bell outline icon" style="padding-left: 22em;"></i></p>
-                        </div>
+                        <p id="bag-desc"></p>
+
+                        <br>
+
 
                     </div>
                 </div>
+
                 <br>
                 <div class="ui animated button" tabindex="0">
                     <div class="visible content" onclick="mockupClick('page-desc','page-intro')">Back</div>
@@ -74,59 +115,28 @@
                     </div>
                 </div>
             </div>
-            <div id="page-desc2">
-                <div class="ui two column grid">
-                    <div class="column">
-                        <div>
-                            <i class="bordered inverted huge yellow shopping bag icon"></i>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui inverted segment">
-                            <p>เพนกวิน</p>
-                        </div>
-                        <p>เชอร์รี่ยิมไพลินตัวตน</p>
-                    </div>
-                </div>
-                <h3 class="ui header" style="text-align: left;padding-left: 1em;">List</h3>
-                <div class="ui eight columngrid">
-                    <div class="column">
-                        <div class="ui secondary inverted green segment">
-                            <p>ผ้าอนามัย<i class="bell outline icon" style="padding-left: 22em;"></i></p>
-                        </div>
 
-                    </div>
-                </div>
-                <br>
-                <div class="ui animated button" tabindex="0">
-                    <div class="visible content" onclick="mockupClick('page-desc2','page-intro')">Back</div>
-                    <div class="hidden content" onclick="mockupClick('page-desc2','page-intro')">
-                        <i class="left arrow icon" onclick="notiChange()"></i>
-                    </div>
-                </div>
-            </div>
             <div id="addbag">
                 <div class="ui one column grid">
                     <div class="column">
-                        <div>
-                            <i class="bordered inverted huge yellow plus icon"></i>
-                        </div>
-
+                        <i class="bordered inverted huge yellow plus icon"></i>
                     </div>
-
+                    <div class="column">
+                        <input id="photo" class="file" type="file" name="mainimage" value="">
+                    </div>
                 </div>
                 <br>
                 <div class="column">
-                    <div class="ui input focus">
-                        <input type="text" placeholder="ชื่อกระเป๋า">
+                    <div class="ui fluid input focus">
+                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameBag" value="">
                     </div>
                 </div>
 
                 <div class="column">
                     <br>
-                    <button class="ui center floated button" onclick="mockupClick('addbag','page-intro')"
-                        data-inverted="" data-tooltip="ยังกดเพิ่มไม่ได้ค่ะ ;-;"
-                        data-position="bottom center">Add</button>
+                    <button id="submit_link" type="submit" class="ui center floated button"
+                        onclick="uploadPic()">Add</button>
+
                 </div>
 
             </div>
@@ -134,62 +144,86 @@
                 <div class="column">
                     <div class="ui two column grid">
                         <div class="twelve wide column">
-                            
-                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Item List</p>
+
+                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Item
+                                List</h3>
                         </div>
                         <div class="four wide column">
-                            <button class="circular ui icon button black" onclick="mockupClick('list-bag, add-list')">
+                            <button class="circular ui icon button black" onclick="mockupClick('list-bag', 'add-list')">
                                 <i class="icon add white"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="ui two column grid secondary inverted red segment">
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">แว่นตา</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">อยู่ในใบระกา</p>
-                        </div>
-                    </div>
-                    <div class="ui two column grid secondary inverted yellow segment">
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">ขนมปัง</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">อยู่ในใบระกา</p>
-                        </div>
-                    </div>
-                    <div class="ui two column grid secondary inverted green segment">
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">ผ้าอนามัย</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">อยู่ในเพนกวิน</p>
-                        </div>
-                    </div>
+                    <p id="thing"></p>
+
                     <br>
-                   
+
 
                 </div>
-
+                <div class="column">
+                    <div class="ui animated button" tabindex="0">
+                        <div class="visible content" onclick="mockupClick('list-bag','selection')">Back</div>
+                        <div class="hidden content">
+                            <i class="left arrow icon" onclick="mockupClick('list-bag','selection')"></i>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
-            <div id="add-list"></div>
+            <div id="add-list">
+                <div class="ui one column grid">
+                    <div class="column">
+                        <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Add item
+                        </h3>
+                        <div class="ui form">
+                            <div class="field">
+                                <select id="meow">
+                                    <option value="โทรศัพท์">โทรศัพท์</option>
+                                    <option value="ปากกา signo RT 0.38">ปากกา signo RT 0.38</option>
+                                    <option value="ลิปมัน">ลิปมัน</option>
+                                    <option value="ลิปสติก ปากไม่แดงไม่มีแรงเดิน">ลิปสติก ปากไม่แดงไม่มีแรงเดิน</option>
+                                    <option value="ถุง">ถุง</option>
+                                    <option value="กระเป๋าตัง">กระเป๋าตัง</option>
+                                    <option value="หูฟัง">หูฟัง</option>
+                                    <option value="กล่องแว่น">กล่องแว่น</option>
+                                    <option value="ยาพ่น">ยาพ่น</option>
+                                    <option value="พวงกุญแจ">พวงกุญแจ</option>
+                                </select>
+                            </div>
+                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">
+                                Priority of this item
+                            </h3>
+                            <div class="grouped fields" id="priority">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="fruit" tabindex="0" value="red">
+                                        <label>สำคัญมาก ห้ามลืมเด็ดขาด !</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="fruit" tabindex="0" value="yellow">
+                                        <label>ลืมได้ แต่ไม่ลืมจะดีกว่า ;_;</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="fruit" tabindex="0" value="green">
+                                        <label>ไม่ค่อยจำเป็นเท่าไร มีเป็นพ้อบเฉยๆ</label>
+                                    </div>
+                                </div>
 
-        </div>
+                            </div>
+                            <div class="ui button" tabindex="0" onclick="show()">Add</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer>
             <nav id="footer">
-                <div class="ui two column grid">
-                    <div class="column" onclick="clickIcon('home', 'list'), mockupClick('list-bag', 'page-intro')">
-                        <i class="black home icon"  id="home"></i>
-                    </div>
-                    <div class="column" onclick="clickIcon('list', 'home'),mockupClick('page-intro', 'list-bag')">
-                        <i class="white list icon" id="list"></i>
-                    </div>
 
-                </div>
             </nav>
         </footer>
     </mobile>
@@ -198,12 +232,135 @@
             document.querySelector('#' + pageToHide).style.display = "none";
             document.querySelector('#' + pageToShow).style.display = "block";
         }
-
-        function clickIcon(changeToBlack, changeToWhite) {
-            document.querySelector('#' + changeToBlack).classList.add("black");
-            document.querySelector('#' + changeToWhite).classList.remove("black");
-        }
     </script>
 </body>
+
+<script>
+    var thing_list = [];
+    var i = 0;
+
+
+    function show() {
+        var e = document.getElementById("meow");
+        var strUser = e.options[e.selectedIndex].value;
+        var bag = "ใบระกา";
+        var f = document.querySelector('input[name=fruit]:checked').value;
+        thing_list.push(strUser);
+
+        if (f == "red") {
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
+                        </div>
+                    </div>`
+                    document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;"></p>
+                        </div>
+                    </div>`
+
+        } else if (f == "yellow") {
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted yellow segment" ondblclick="deleteList(${i-1})">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;"></p>
+                        </div>
+                    </div>`
+
+        } else if (f == "green") {
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted green segment">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;"></p>
+                        </div>
+                    </div>`
+
+        }
+        alert("Add Complete!");
+        mockupClick('add-list', 'list-bag')
+        i++;
+    }
+
+    function deleteList(index) {
+        remove = thing_list.splice(index, 1);
+
+    }
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDa_iOjl9e53zHXSgc8pR4jVyf1jZG0Tfo",
+        authDomain: "pwa-notibag-3fec4.firebaseapp.com",
+        databaseURL: "https://pwa-notibag-3fec4.firebaseio.com",
+        projectId: "pwa-notibag-3fec4",
+        storageBucket: "pwa-notibag-3fec4.appspot.com",
+        messagingSenderId: "684446211550",
+        appId: "1:684446211550:web:bf5765aca4570d5055114f",
+        measurementId: "G-1WFYTQNJYV"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    function upload() {
+        var nameRes = document.getElementById('nameRes').value;
+        db.collection("store").add({
+            nameRes: nameRes
+        });
+    }
+
+
+    var selectedFile;
+
+    function uploadPic() {
+        var pic = document.getElementById("photo");
+        selectedFile = pic.files[0];
+
+        document.getElementById('submit_link').setAttribute('disabled', 'true');
+        myfunction();
+        mockupClick('addbag', 'page-intro')
+    }
+
+    function myfunction() {
+        var name = document.getElementById("photo").files.item(0).name;
+        var storageRef = firebase.storage().ref('/images/' + name);
+        var uploadTask = storageRef.put(selectedFile);
+        uploadTask.on('state_changed', function (snapshot) {
+
+        }, function (error) {
+            console.log(error);
+        }, function () {
+            uploadTask.snapshot.ref.getDownloadURL().then(
+                function (downloadURL) {
+                    document.getElementById('submit_link').removeAttribute('disabled');
+                    var nameBag = document.getElementById('nameBag').value;
+                    var pic = downloadURL;
+
+                    db.collection("store").add({
+                        nameBag: nameBag,
+                        pic: pic,
+
+                    });
+
+                });
+        });
+
+    };;
+
+    db.collection('store').get().then(snapshot => {
+        snapshot.forEach(doc => {
+            console.log(doc.data().nameBag)
+        });
+    });
+</script>
 
 </html>
