@@ -256,7 +256,7 @@
                             <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
                         </div>
                     </div>`
-                    document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
                         <div class="column">
                             <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
                         </div>
@@ -274,7 +274,14 @@
                             <p style="text-align: left;padding-left: 1em;"></p>
                         </div>
                     </div>`
-
+            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;"></p>
+                        </div>
+                    </div>`
         } else if (f == "green") {
             document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted green segment">
                         <div class="column">
@@ -284,7 +291,14 @@
                             <p style="text-align: left;padding-left: 1em;"></p>
                         </div>
                     </div>`
-
+            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
+                        </div>
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;"></p>
+                        </div>
+                    </div>`
         }
         alert("Add Complete!");
         mockupClick('add-list', 'list-bag')
