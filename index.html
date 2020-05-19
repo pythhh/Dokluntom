@@ -18,15 +18,13 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 
 </head>
 
 <body>
     <mobile>
-        <div class="mobile-status-bar">
-            <img src="https://i.imgur.com/XSqz2K4.png" alt="">
-        </div>
+
         <div class='mobile-container'>
             <nav style="margin-bottom: .5em;">NOTIBAG</nav>
             <br>
@@ -46,7 +44,7 @@
                         </div>
                     </div>
                     <!-- <div class="column">
-                        <input type="text" id="nameRes">
+                        <input type="text" id="nameBag">
                         <button onclick="upload()">แง</button>
                     </div> -->
                 </div>
@@ -55,29 +53,56 @@
 
                 <div class="ui one column grid">
                     <div class="column">
-                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                            <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content" id="amount-item">ใบระกา</p>
-                        </div>
-                    </div>
-
-
-                    <div class="column">
                         <div class="ui segment" onclick="mockupClick('page-intro','addbag')">
                             <i class="circular big inverted yellow shopping plus icon"></i>
                             <p class="content">เพิ่มกระเป๋า</p>
                         </div>
                     </div>
                     <div class="column">
-                        <div class="ui animated button" tabindex="0">
-                            <div class="visible content" onclick="mockupClick('page-intro','selection')">Back</div>
-                            <div class="hidden content" onclick="mockupClick('page-intro','selection')">
-                                <i class="left arrow icon" onclick="notiChange()"></i>
-                            </div>
+                        
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content" id="amount-item">ใบระกา</p>
                         </div>
+                        
+                    </div>
+                    <div class="column">
+                        
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content" id="amount-item">ใบระกา</p>
+                        </div>
+                        
+                    </div>
+                    <div class="column">
+                        
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content" id="amount-item">ใบระกา</p>
+                        </div>
+                        
+                    </div>
+                    <div class="column">
+                        
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content" id="amount-item">ใบระกา</p>
+                        </div>
+                        
+                    </div>
+                    <div class="column" id="addkapao">
+                        
+                    </div>
+
+                    
+                </div>
+                <br>
+                <div class="ui animated button" tabindex="0">
+                    <div class="visible content" onclick="mockupClick('page-intro','selection')">Back</div>
+                    <div class="hidden content" onclick="mockupClick('page-intro','selection')">
+                        <i class="left arrow icon" onclick="notiChange()"></i>
                     </div>
                 </div>
-
             </div>
             <div id="page-desc">
                 <div class="ui two column grid">
@@ -126,21 +151,22 @@
                         <i class="bordered inverted huge yellow plus icon"></i>
                     </div>
                     <div class="column">
-                        <input id="photo" class="file" type="file" name="mainimage" value="" >
+                        <input id="photo" class="file" type="file" name="mainimage" value="">
                     </div>
                 </div>
                 <br>
                 <div class="column">
                     <div class="ui fluid input focus">
-                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameRes" value="">
+                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameBag" value="">
                     </div>
                 </div>
 
                 <div class="column">
                     <br>
                     <button id="submit_link" type="submit" class="ui center floated button"
-                    onclick="uploadPic()" >Add</button>
-
+                        onclick="uploadPic()">Add</button>
+                    <button id="submit_link" type="submit" class="ui center floated button"
+                        onclick="mockupClick('addbag','page-intro')">Back</button>
                 </div>
 
             </div>
@@ -327,24 +353,25 @@
         messagingSenderId: "210841539241",
         appId: "1:210841539241:web:01ae9b2d14b907dbb10fb8"
     };
-    
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    
+
     const db = firebase.firestore();
 
     // //สำหรับการ upload
     // db.collection("store").add({
-    //     nameRes: "aaa",
+    //     nameBag: "aaa",
     //     desc: "bbb",
     // });
 
     //สำหรับการ dowload
     db.collection('store').get().then(snapshot => {
         snapshot.forEach(doc => {
-            console.log(doc.data().nameRes)
+            console.log(doc.data().nameBag)
         });
     });
+
     var selectedFile;
     //สำหรับ upload รูปภาพ
     function uploadPic() {
@@ -353,6 +380,8 @@
 
         document.getElementById('submit_link').setAttribute('disabled', 'true');
         myfunction();
+
+        alert("Add Complete!");
     }
 
     function myfunction() {
@@ -362,8 +391,8 @@
         uploadTask.on('state_changed', function (snapshot) {
             var progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            var uploader = document.getElementById('uploader');
-            uploader.value = progress;
+            // var uploader = document.getElementById('uploader');
+            // uploader.value = progress;
             switch (snapshot.state) {
                 case firebase.storage.TaskState.PAUSED:
                     console.log('Upload is paused');
@@ -372,24 +401,40 @@
                     console.log('Upload is running');
                     break;
             }
+
         }, function (error) {
             console.log(error);
         }, function () {
             uploadTask.snapshot.ref.getDownloadURL().then(
                 function (downloadURL) {
                     document.getElementById('submit_link').removeAttribute('disabled');
-                    var nameRes = document.getElementById('nameRes').value;
+                    var nameBag = document.getElementById('nameBag').value;
                     var pic = downloadURL;
 
-
+                    // เพิ่มข้อมูลลง firebase
                     db.collection("store").add({
-                        nameRes: nameRes,
+                        nameBag: nameBag,
                         pic: pic,
                         access: false
                     });
+                    // สำหรับการ download
+                    db.collection('store').get().then(snapshot => {
+                        snapshot.forEach(doc => {
+                            nameBag = doc.data().nameBag
+                            pic = doc.data().pic
+                        });
+                    });
 
+                    // เพิ่มกระเป๋า
+                    document.getElementById("addkapao").innerHTML += `<div class="column">
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <img src="${pic}" width="100" height="100" style="border-radius: 50%"></img>
+                            <p class="content" id="amount-item">${nameBag}</p>
+                        </div>
+                    </div>`
                 });
         });
+
     };
 </script>
 
