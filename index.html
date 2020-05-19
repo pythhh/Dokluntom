@@ -13,13 +13,13 @@
     <link rel="apple-touch-icon" sizes="72x72" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
     <link rel="apple-touch-icon" sizes="114x114" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
     <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
-    <!--Fire base secment-->
-    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> 
+
 </head>
 
 <body>
@@ -126,20 +126,20 @@
                         <i class="bordered inverted huge yellow plus icon"></i>
                     </div>
                     <div class="column">
-                        <input id="photo" class="file" type="file" name="mainimage" value="">
+                        <input id="photo" class="file" type="file" name="mainimage" value="" >
                     </div>
                 </div>
                 <br>
                 <div class="column">
                     <div class="ui fluid input focus">
-                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameBag" value="">
+                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameRes" value="">
                     </div>
                 </div>
 
                 <div class="column">
                     <br>
                     <button id="submit_link" type="submit" class="ui center floated button"
-                        onclick="uploadPic()">Add</button>
+                    onclick="uploadPic()" >Add</button>
 
                 </div>
 
@@ -164,9 +164,9 @@
 
 
                 </div>
-                <div class="column" >
+                <div class="column">
                     <div class="ui animated button" tabindex="0" onclick="mockupClick('list-bag','selection')">
-                        <div class="visible content" >Back</div>
+                        <div class="visible content">Back</div>
                         <div class="hidden content">
                             <i class="left arrow icon"></i>
                         </div>
@@ -316,39 +316,43 @@
         remove = thing_list.splice(index, 1);
 
     }
+
     // Your web app's Firebase configuration
     var firebaseConfig = {
-        apiKey: "AIzaSyDa_iOjl9e53zHXSgc8pR4jVyf1jZG0Tfo",
-        authDomain: "pwa-notibag-3fec4.firebaseapp.com",
-        databaseURL: "https://pwa-notibag-3fec4.firebaseio.com",
-        projectId: "pwa-notibag-3fec4",
-        storageBucket: "pwa-notibag-3fec4.appspot.com",
-        messagingSenderId: "684446211550",
-        appId: "1:684446211550:web:bf5765aca4570d5055114f",
-        measurementId: "G-1WFYTQNJYV"
+        apiKey: "AIzaSyCFTQN3huItdsXgdtMDFQTUa8zIGkKdsQ8",
+        authDomain: "my-notibag.firebaseapp.com",
+        databaseURL: "https://my-notibag.firebaseio.com",
+        projectId: "my-notibag",
+        storageBucket: "my-notibag.appspot.com",
+        messagingSenderId: "210841539241",
+        appId: "1:210841539241:web:01ae9b2d14b907dbb10fb8"
     };
+    
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-
+    
     const db = firebase.firestore();
 
-    function upload() {
-        var nameRes = document.getElementById('nameRes').value;
-        db.collection("store").add({
-            nameRes: nameRes
+    // //สำหรับการ upload
+    // db.collection("store").add({
+    //     nameRes: "aaa",
+    //     desc: "bbb",
+    // });
+
+    //สำหรับการ dowload
+    db.collection('store').get().then(snapshot => {
+        snapshot.forEach(doc => {
+            console.log(doc.data().nameRes)
         });
-    }
-
-
+    });
     var selectedFile;
-
+    //สำหรับ upload รูปภาพ
     function uploadPic() {
         var pic = document.getElementById("photo");
         selectedFile = pic.files[0];
 
         document.getElementById('submit_link').setAttribute('disabled', 'true');
         myfunction();
-        mockupClick('addbag', 'page-intro')
     }
 
     function myfunction() {
@@ -356,32 +360,37 @@
         var storageRef = firebase.storage().ref('/images/' + name);
         var uploadTask = storageRef.put(selectedFile);
         uploadTask.on('state_changed', function (snapshot) {
-
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            var uploader = document.getElementById('uploader');
+            uploader.value = progress;
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED:
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING:
+                    console.log('Upload is running');
+                    break;
+            }
         }, function (error) {
             console.log(error);
         }, function () {
             uploadTask.snapshot.ref.getDownloadURL().then(
                 function (downloadURL) {
                     document.getElementById('submit_link').removeAttribute('disabled');
-                    var nameBag = document.getElementById('nameBag').value;
+                    var nameRes = document.getElementById('nameRes').value;
                     var pic = downloadURL;
 
-                    db.collection("store").add({
-                        nameBag: nameBag,
-                        pic: pic,
 
+                    db.collection("store").add({
+                        nameRes: nameRes,
+                        pic: pic,
+                        access: false
                     });
 
                 });
         });
-
-    };;
-
-    db.collection('store').get().then(snapshot => {
-        snapshot.forEach(doc => {
-            console.log(doc.data().nameBag)
-        });
-    });
+    };
 </script>
 
 </html>
