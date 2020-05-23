@@ -59,42 +59,19 @@
                         </div>
                     </div>
                     <div class="column">
-                        
+
                         <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
                             <i class="circular big inverted yellow suitcase icon"></i>
                             <p class="content" id="amount-item">ใบระกา</p>
                         </div>
-                        
-                    </div>
-                    <div class="column">
-                        
-                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                            <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content" id="amount-item">ใบระกา</p>
-                        </div>
-                        
-                    </div>
-                    <div class="column">
-                        
-                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                            <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content" id="amount-item">ใบระกา</p>
-                        </div>
-                        
-                    </div>
-                    <div class="column">
-                        
-                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                            <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content" id="amount-item">ใบระกา</p>
-                        </div>
-                        
-                    </div>
-                    <div class="column" id="addkapao">
-                        
+
                     </div>
 
-                    
+                    <div class="column" id="addkapao">
+
+                    </div>
+
+
                 </div>
                 <br>
                 <div class="ui animated button" tabindex="0">
@@ -208,7 +185,7 @@
                         </h3>
                         <div class="ui form">
                             <div class="field">
-                                <select id="meow">
+                                <select id="allItems">
                                     <option value="โทรศัพท์">โทรศัพท์</option>
                                     <option value="ปากกา signo RT 0.38">ปากกา signo RT 0.38</option>
                                     <option value="ลิปมัน">ลิปมัน</option>
@@ -227,25 +204,25 @@
                             <div class="grouped fields" id="priority">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="fruit" tabindex="0" value="red">
+                                        <input type="radio" name="color" tabindex="0" value="red">
                                         <label>สำคัญมาก ห้ามลืมเด็ดขาด !</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="fruit" tabindex="0" value="yellow">
+                                        <input type="radio" name="color" tabindex="0" value="yellow">
                                         <label>ลืมได้ แต่ไม่ลืมจะดีกว่า ;_;</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="fruit" tabindex="0" value="green">
+                                        <input type="radio" name="color" tabindex="0" value="green">
                                         <label>ไม่ค่อยจำเป็นเท่าไร มีเป็นพ้อบเฉยๆ</label>
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="ui button" tabindex="0" onclick="show()">Add</div>
+                            <div class="ui button" tabindex="0" onclick="addItem()">Add</div>
                         </div>
                     </div>
                 </div>
@@ -266,74 +243,58 @@
 </body>
 
 <script>
-    var thing_list = [];
     var i = 0;
     var bag = "ใบระกา";
+    if (localStorage.getItem("thing_list") == null) {
+        localStorage.setItem("thing_list", "[]")
+    }
+    thing_list = JSON.parse(localStorage.thing_list);
+    displayItem();
 
-    function show() {
-        var e = document.getElementById("meow");
-        var strUser = e.options[e.selectedIndex].value;
+    function displayItem() {
+        document.getElementById("thing").innerHTML = "";
+        let i = 1;
+        for (item of thing_list) {
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick="removeItem(${i-1})">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${i}.${item}</p>
+                        </div>
+                    </div>`;
+            i++;
 
-        var f = document.querySelector('input[name=fruit]:checked').value;
-        thing_list.push(strUser);
-
-        if (f == "red") {
-            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
-                        </div>
-                    </div>`
-            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted red segment" ondblclick='deleteList(this)'>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;"></p>
-                        </div>
-                    </div>`
-
-        } else if (f == "yellow") {
-            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted yellow segment" ondblclick='deleteList(this)'>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
-                        </div>
-                    </div>`
-            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted yellow segment" ondblclick='deleteList(this)'>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;"></p>
-                        </div>
-                    </div>`
-        } else if (f == "green") {
-            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted green segment" ondblclick='deleteList(this)'>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">อยู่ใน${bag}</p>
-                        </div>
-                    </div>`
-            document.getElementById("bag-desc").innerHTML += `<div class="ui two column grid secondary inverted green segment" ondblclick='deleteList(this)'>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${thing_list[i]}</p>
-                        </div>
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;"></p>
-                        </div>
-                    </div>`
         }
-        i++;
-        document.getElementById("amount-item").innerHTML = `ใบระกามี ${i} item`
+        localStorage.setItem("thing_list", JSON.stringify(thing_list));
+
+    }
+
+    function addItem() {
+        var get_item = document.getElementById("allItems");
+        var color = document.querySelector('input[name=color]:checked').value;
+
+        var item_add = get_item.options[get_item.selectedIndex].value;
+        if (item_add != null) {
+            thing_list.push(item_add)
+            console.log(thing_list);
+            displayItem();
+        }
         alert("Add Complete!");
         mockupClick('add-list', 'list-bag')
+    }
+
+    function removeItem(index) {
+        remove = thing_list.splice(index, 1);
+        displayItem();
+    }
+
+    function show() {
+
+
+
+        thing_list.push(strUser);
+
+
+        i++;
+        document.getElementById("amount-item").innerHTML = `ใบระกามี ${i} item`
 
 
     }
