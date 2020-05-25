@@ -270,7 +270,8 @@
             document.querySelector('#' + pageToHide).style.display = "none";
             document.querySelector('#' + pageToShow).style.display = "block";
         }
-        function Retry(){
+
+        function Retry() {
             num = randomTimes();
             count = 0;
             document.getElementById("progress").innerHTML =
@@ -279,6 +280,20 @@
                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>`
 
         }
+
+        function Home() {
+            document.getElementById("topic").value = '';
+            document.getElementById("first").value = '';
+            document.getElementById("second").value = '';
+
+            num = randomTimes();
+            count = 0;
+            document.getElementById("progress").innerHTML =
+                `<div class="progress" >
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>`
+        }
+
         function saveChoice() {
             var getTopic = document.getElementById("topic").value;
             var getFirst = document.getElementById("first").value;
@@ -314,7 +329,8 @@
             }
             if (num == 0) {
                 console.log(document.getElementById("maintext").innerHTML);
-                document.getElementById("sum").innerHTML = `<b>"` +document.getElementById("maintext").innerHTML+ `"</b>`;
+                document.getElementById("sum").innerHTML = `<b>"` + document.getElementById("maintext").innerHTML +
+                    `"</b>`;
                 document.getElementById("topicSum").innerHTML = `<b>` + document.getElementById("topic").value + `</b>`;
 
                 alert(document.getElementById("maintext").innerHTML);
