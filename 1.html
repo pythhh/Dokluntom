@@ -7,41 +7,37 @@
 </head>
 
 <body>
-    <video id="preview-video" autoplay></video>
-    <script>
-        const constraints = {
-            video: {
-                width: 112,
-                height: 112,
-                aspectRatio: 1
-            }
-        }
-        navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-            let preview = document.getElementById("preview-video")
-            preview.srcObject = stream
-            // เก็บรูป
-            preview.addEventListener("click", () => captureImage())
-
-        }).catch(error => {
-            console.error(error)
-        })
-        // เก็บภาพ
-        let captureImage = () => {
-            const img = document.createElement("img"),
-                preview = document.getElementById("preview-video")
-            width = preview.offsetWidth,
-                height = preview.offsetHeight
-            const canvas = document.createElement("canvas")
-            canvas.width = width
-            canvas.height = height
-            const context = canvas.getContext("2d")
-            context.drawImage(preview, 0, 0, width, height)
-            img.src = canvas.toDataURL("image/png")
-            document.body.appendChild(img)
-            
-        }
-        
-    </script>
+    <form>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Email address</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1" required>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Example multiple select</label>
+          <select multiple class="form-control" id="exampleFormControlSelect2" required>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
 </body>
 
 

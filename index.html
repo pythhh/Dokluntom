@@ -163,33 +163,28 @@
                 </div>
 
                 <div id="page-first" class="page text-center">
+                    
+                        <div class="form-group">
+                            <label for="" style="font-size:1.5em;text-align: center;padding-top: 5em;"
+                            class="col-form-label"><i>โอ้เจ้าดอก</i></label>
 
-                    <label style="font-size:1.5em;text-align: center;padding-top: 5em;"
-                        class="col-form-label"><i>โอ้เจ้าดอก</i></label>
-                    <div class="row">
-
-                        <input type="text" class="form-control" placeholder="สิ่งที่ตัดสินใจไม่ได้" rows="10"
-                            id="topic"></input>
-                    </div>
-                    <hr>
-                    <div class="form-group row">
-                        <label class="col-md col-form-label">กลีบนี้แทน</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" id="first" placeholder="รัก">
+                        <input type="text" class="form-control" placeholder="สิ่งที่ตัดสินใจไม่ได้"
+                            id="topic" required></input>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">กลีบนั้นแทน</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" id="second" placeholder="ไม่รัก">
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-md col-form-label">กลีบนี้แทน</label>
+                            <input type="text" class="form-control" id="first" placeholder="รัก" required>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 col-form-label">กลีบนั้นแทน</label>
 
-                    <button onclick="saveChoice(), mockupClick('page-first','page-ranking')"
-                        class="btn btn-warning btn-md btn-block">PICK
-                        IT
-                        UP!</button>
+                            <input type="text" class="form-control" id="second" placeholder="ไม่รัก" required>
+                        </div>
+                    
+                        <button onclick="saveChoice()"
+                            class="btn btn-warning btn-md btn-block" type="submit">PICK IT UP!</button>
+                   
                 </div>
             </div>
             <div id="page-ranking" class="page" onclick="pickMe(), setRandomColor()"
@@ -265,7 +260,7 @@
         var color_list = ['rgba(77, 157, 224, 0.4)', 'rgba(225, 85, 84, 0.4)', 'rgba(59, 178, 115, 0.4)',
             'rgba(160, 146, 198, 0.4)', 'rgba(255, 210, 137, 0.4)', 'rgba(131, 144, 250, 0.4)'
         ]
-
+       
         function mockupClick(pageToHide, pageToShow) {
             document.querySelector('#' + pageToHide).style.display = "none";
             document.querySelector('#' + pageToShow).style.display = "block";
@@ -299,6 +294,11 @@
             var getFirst = document.getElementById("first").value;
             var getSecond = document.getElementById("second").value;
 
+            if(getTopic == "" || getFirst == "" || getSecond == ""){
+                alert('กรุณากรอกข้อมูลให้ครบ');
+            } else {
+                mockupClick('page-first','page-ranking')
+            }
             document.getElementById("topicHead").innerHTML =
                 "<h3 style='text-align:center;paddding-left:2em'><i>โอ้เจ้าดอก" + getTopic + " , ฉันเคยเด็ด</i></h3>"
 
