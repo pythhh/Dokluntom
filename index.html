@@ -3,400 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotiBag!</title>
+    <title>DOKLUNTOM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="icon" type="image/png" sizes="16x16"
-        href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png" />
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        href="https://img.icons8.com/doodle/48/000000/man-with-flower.png" />
+    <!--font-->
     <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="apple-touch-icon" sizes="72x72" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+    <link href="https://fonts.googleapis.com/css2?family=Chonburi&display=swap" rel="stylesheet">
 
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://img.icons8.com/doodle/48/000000/man-with-flower.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://img.icons8.com/doodle/48/000000/man-with-flower.png">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/doodle/48/000000/man-with-flower.png">
 
+    <style>
+        body {
+            padding: 1em;
+            background: #666;
+            font-family: sans-serif;
+        }
+
+        mobile {
+            display: flex;
+            flex-flow: column nowrap;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%), url('https://i.pinimg.com/564x/64/2d/8e/642d8e859f36f971202ccbd8a8f54e77.jpg');
+            margin: auto;
+            width: 414px;
+            height: 736px;
+            box-shadow: 0px 12px 24px #0004;
+        }
+
+        .mobile-status-bar img {
+            width: 100%;
+        }
+
+        .mobile-container {
+            height: 100%;
+            overflow: auto;
+        }
+
+        nav {
+            background: purple;
+            color: white;
+            text-align: center;
+            padding: .5em;
+        }
+
+        .page {
+            padding: 1em;
+        }
+
+        textarea {
+            width: 100%;
+            border-radius: .3em;
+            font-size: 1rem;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: purple;
+            border-radius: .3em;
+            font-size: 1rem;
+            color: white;
+            width: 100%;
+            padding: 1em;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        input {
+            width: 100%;
+            border-radius: .3em;
+            font-size: 1rem;
+            padding: 1em .5em;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            margin-bottom: 1em;
+        }
+
+        button.score {
+            width: 48%;
+            display: inline-block;
+            margin: 2px 0;
+        }
+
+        #page-ranking,
+        #page-first,
+        #page-end {
+            display: none;
+        }
+
+        p,
+        h3,
+        label,
+        h1,
+        h4 {
+            font-family: 'Kanit', sans-serif;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Chonburi', cursive;
+        }
+
+        #maintext,
+        #topicHead {
+            font-family: 'Kanit', sans-serif;
+            text-align: center;
+
+        }
+
+        .btn {
+            border-radius: 40px;
+            color: white;
+            letter-spacing: 0.1em;
+            font-family: 'Kanit', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
     <mobile>
 
         <div class='mobile-container'>
-            <nav style="margin-bottom: .5em;">NOTIBAG</nav>
-            <br>
-            <div id="selection">
-                <div class="ui two column grid">
-                    <div class="column">
-                        <div class="ui segment" onclick="mockupClick('selection','page-intro')">
-                            <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content">Bag</p>
-                        </div>
+            <div class="container">
+                <div id="page-setting" class="page text-center">
 
-                    </div>
-                    <div class="column">
-                        <div class="ui segment" onclick="mockupClick('selection','list-bag')">
-                            <i class="circular big inverted yellow list icon"></i>
-                            <p class="content">Item list</p>
+                    <div class="row" style="padding-top: 2em;">
+                        <div class="col">
+                            <h2>DOKLUNTOM</h2>
+                            <p><i>โอ้เจ้าดอกลั่นทม<br>ฉันเคยเด็ดดม, ฉันเคยเด็ดเล่น</i></p>
+
                         </div>
                     </div>
-                    <!-- <div class="column">
-                        <input type="text" id="nameBag">
-                        <button onclick="upload()">แง</button>
-                    </div> -->
+                    <div class="row" style="padding-top: 2em;">
+
+                        <div class="col">
+                            <img src="https://cdn.dribbble.com/users/159535/screenshots/4818432/animation-pickingflower-dribbble.gif"
+                                width="320px" height="300px" style="border-radius: 50%;" />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 2em;">
+                        <div class="col"><button type="button" class="btn btn-warning btn-md btn-block"
+                                onclick="mockupClick('page-setting','page-first')">START
+                                TO PICK</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-first" class="page text-center">
+
+                    <label style="font-size:1.5em;text-align: center;padding-top: 5em;"
+                        class="col-form-label"><i>โอ้เจ้าดอก</i></label>
+                    <div class="row">
+
+                        <input type="text" class="form-control" placeholder="สิ่งที่ตัดสินใจไม่ได้" rows="10"
+                            id="topic"></input>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label class="col-md col-form-label">กลีบนี้แทน</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="first" placeholder="รัก">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">กลีบนั้นแทน</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="second" placeholder="ไม่รัก">
+                        </div>
+                    </div>
+
+                    <button onclick="saveChoice(), mockupClick('page-first','page-ranking')"
+                        class="btn btn-warning btn-md btn-block">PICK
+                        IT
+                        UP!</button>
                 </div>
             </div>
-            <div id="page-intro">
-
-                <div class="ui one column grid">
-                    <div class="column">
-                        <div class="ui segment" onclick="mockupClick('page-intro','addbag')">
-                            <i class="circular big inverted yellow shopping plus icon"></i>
-                            <p class="content">เพิ่มกระเป๋า</p>
-                        </div>
+            <div id="page-ranking" class="page" onclick="pickMe(), setRandomColor()"
+                style="height: 100%;padding-left:1em;">
+                <div style="padding-top: 10em;text-align: center;" id="text-random">
+                    <div class="row justify-content-md-center">
+                        <h2 id="topicHead">Topic</h2>
                     </div>
-                    <div class="column">
-
-                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                            <i class="circular big inverted yellow suitcase icon"></i>
-                            <p class="content" id="amount-item">ใบระกา</p>
-                        </div>
-
+                    <div class="row justify-content-md-center">
+                        <h1 style="text-align: center;" id="maintext"></h1>
                     </div>
 
-                    <div class="column" id="addkapao">
+                    <div class="row justify-content-md-center">
+                        <h2 id="randomnum"></h2>
+                        <img src="pickup.gif" width="150px" style="border-radius: 50%;" />
 
                     </div>
-
-
-                </div>
-                <br>
-                <div class="ui animated button" tabindex="0">
-                    <div class="visible content" onclick="mockupClick('page-intro','selection')">Back</div>
-                    <div class="hidden content" onclick="mockupClick('page-intro','selection')">
-                        <i class="left arrow icon" onclick="notiChange()"></i>
+                    <div class="row justify-content-md-center" style="padding-top: 1em;">
+                        <p><i>ฉันเคยเด็ดเล่น<br>เด็ดเช้าเด็ดเย็น<br>ฉันเคยเด็ดเล่น<br>เด็ดดม เด็ดดม</i></p>
                     </div>
-                </div>
-            </div>
-            <div id="page-desc">
-                <div class="ui two column grid">
-                    <div class="column">
-                        <div>
-                            <i class="bordered inverted huge yellow suitcase icon"></i>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui inverted segment secondary">
-                            <p>ใบระกา</p>
-                        </div>
-                        <p>ช็อปปิ้งเซนเซอร์แพนดาแอดมิชชั่นจิ๊กซอว์</p>
-                    </div>
-                </div>
-                <div class="ui">
-                    <div class="column">
-                        <div class="ui one column grid">
-                            <div class="column">
+                    <footer style="padding-top: 3em;" id="progress">
+                        <i>สัมผัสเพื่อทำการเด็ดกลีบ
 
-                                <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">
-                                    List</h3>
-                            </div>
-
-                        </div>
-                        <p id="bag-desc"></p>
-
-                        <br>
+                        </i>
+                    </footer>
 
 
-                    </div>
-                </div>
-
-                <br>
-                <div class="ui animated button" tabindex="0">
-                    <div class="visible content" onclick="mockupClick('page-desc','page-intro')">Back</div>
-                    <div class="hidden content" onclick="mockupClick('page-desc','page-intro')">
-                        <i class="left arrow icon" onclick="notiChange()"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div id="addbag">
-                <div class="ui one column grid">
-                    <div class="column">
-                        <i class="bordered inverted huge yellow plus icon"></i>
-                    </div>
-                    <div class="column">
-                        <input id="photo" class="file" type="file" name="mainimage" value="">
-                    </div>
-                </div>
-                <br>
-                <div class="column">
-                    <div class="ui fluid input focus">
-                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameBag" value="">
-                    </div>
-                </div>
-
-                <div class="column">
-                    <br>
-                    <button id="submit_link" type="submit" class="ui center floated button"
-                        onclick="uploadPic()">Add</button>
-                    <button id="submit_link" type="submit" class="ui center floated button"
-                        onclick="mockupClick('addbag','page-intro')">Back</button>
-                </div>
-
-            </div>
-            <div id="list-bag">
-                <div class="column">
-                    <div class="ui two column grid">
-                        <div class="twelve wide column">
-
-                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Item
-                                List</h3>
-                        </div>
-                        <div class="four wide column">
-                            <button class="circular ui icon button black" onclick="mockupClick('list-bag', 'add-list')">
-                                <i class="icon add white"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p id="thing"></p>
-
-                    <br>
-
-
-                </div>
-                <div class="column">
-                    <div class="ui animated button" tabindex="0" onclick="mockupClick('list-bag','selection')">
-                        <div class="visible content">Back</div>
-                        <div class="hidden content">
-                            <i class="left arrow icon"></i>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div id="add-list">
-                <div class="ui one column grid">
-                    <div class="column">
-                        <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Add item
-                        </h3>
-                        <div class="ui form">
-                            <div class="field">
-                                <select id="allItems">
-                                    <option value="โทรศัพท์">โทรศัพท์</option>
-                                    <option value="ปากกา signo RT 0.38">ปากกา signo RT 0.38</option>
-                                    <option value="ลิปมัน">ลิปมัน</option>
-                                    <option value="ลิปสติก ปากไม่แดงไม่มีแรงเดิน">ลิปสติก ปากไม่แดงไม่มีแรงเดิน</option>
-                                    <option value="ถุง">ถุง</option>
-                                    <option value="กระเป๋าตัง">กระเป๋าตัง</option>
-                                    <option value="หูฟัง">หูฟัง</option>
-                                    <option value="กล่องแว่น">กล่องแว่น</option>
-                                    <option value="ยาพ่น">ยาพ่น</option>
-                                    <option value="พวงกุญแจ">พวงกุญแจ</option>
-                                </select>
-                            </div>
-                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">
-                                Priority of this item
-                            </h3>
-                            <div class="grouped fields" id="priority">
-                                <div class="field">
-                                    <div class="ui radio checkbox">
-                                        <input type="radio" name="color" tabindex="0" value="red">
-                                        <label>สำคัญมาก ห้ามลืมเด็ดขาด !</label>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui radio checkbox">
-                                        <input type="radio" name="color" tabindex="0" value="yellow">
-                                        <label>ลืมได้ แต่ไม่ลืมจะดีกว่า ;_;</label>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui radio checkbox">
-                                        <input type="radio" name="color" tabindex="0" value="green">
-                                        <label>ไม่ค่อยจำเป็นเท่าไร มีเป็นพ้อบเฉยๆ</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="ui button" tabindex="0" onclick="addItem()">Add</div>
-                        </div>
-                    </div>
                 </div>
             </div>
+            <div class="container">
+                <div id="page-end">
+                    <div class="row justify-content-md-center" style="padding-top: 10em;">
+                        <h4><i>สรุปผล</i></h4>
+
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <h2 id="topicSum"></h2>
+                    </div>
+                    <div class="row justify-content-md-center" style="padding-top: 4em;">
+                        <h1 id="sum"></h1>
+                    </div>
+                    <div style="padding-top: 2em;">
+                        <button type="button" class="btn btn-secondary btn-md btn-block"
+                            onclick="mockupClick('page-end','page-ranking'), Retry()">RETRY</button>
+                        <button type="button" class="btn btn-warning btn-md btn-block"
+                            onclick="mockupClick('page-end','page-setting'), Home()">HOME</button>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- <div id="page-findbyID" class="page">
+              <h2>Find by ID</h2>
+              <input type="text">
+              <button>Go</button>
+          </div>
+          
+          <div id="page-scoring" class="page">
+              <h2>Select Score</h2>
+            <h3>61070036 อันนา</h3>
+            <button class="score">5</button>
+            <button class="score">10</button>
+            <button class="score">20</button>
+            <button class="score">50</button>
+          </div> -->
         </div>
-        <footer>
-            <nav id="footer">
 
-            </nav>
-        </footer>
     </mobile>
     <script>
+        var getTopic, getFirst, getSecond, count = 0,
+            num = randomTimes(),
+            max_value = num;
+        var color_list = ['rgba(77, 157, 224, 0.4)', 'rgba(225, 85, 84, 0.4)', 'rgba(59, 178, 115, 0.4)',
+            'rgba(160, 146, 198, 0.4)', 'rgba(255, 210, 137, 0.4)', 'rgba(131, 144, 250, 0.4)'
+        ]
+
         function mockupClick(pageToHide, pageToShow) {
             document.querySelector('#' + pageToHide).style.display = "none";
             document.querySelector('#' + pageToShow).style.display = "block";
         }
-    </script>
-</body>
 
-<script>
-    var i = 0;
-    var bag = "ใบระกา";
-    if (localStorage.getItem("thing_list") == null) {
-        localStorage.setItem("thing_list", "[]")
-    }
-    thing_list = JSON.parse(localStorage.thing_list);
-    displayItem();
-
-    function displayItem() {
-        document.getElementById("thing").innerHTML = "";
-        let i = 1;
-        for (item of thing_list) {
-            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted orange segment" ondblclick="removeItem(${i-1})">
-                        <div class="column">
-                            <p style="text-align: left;padding-left: 1em;">${item}</p>
-                        </div>
-                    </div>`;
-            i++;
+        function Retry() {
+            num = randomTimes();
+            count = 0;
+            document.getElementById("progress").innerHTML =
+                `<div class="progress" >
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>`
 
         }
-        localStorage.setItem("thing_list", JSON.stringify(thing_list));
 
-    }
+        function Home() {
+            document.getElementById("topic").value = '';
+            document.getElementById("first").value = '';
+            document.getElementById("second").value = '';
 
-    function addItem() {
-        var get_item = document.getElementById("allItems");
-        var color = document.querySelector('input[name=color]:checked').value;
-
-        var item_add = get_item.options[get_item.selectedIndex].value;
-        if (item_add != null) {
-            thing_list.push(item_add)
-            console.log(thing_list);
-            displayItem();
+            num = randomTimes();
+            count = 0;
+            document.getElementById("progress").innerHTML =
+                `<div class="progress" >
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>`
         }
-        alert("Add Complete!");
-        mockupClick('add-list', 'list-bag')
-    }
 
-    function removeItem(index) {
-        remove = thing_list.splice(index, 1);
-        displayItem();
-    }
+        function saveChoice() {
+            var getTopic = document.getElementById("topic").value;
+            var getFirst = document.getElementById("first").value;
+            var getSecond = document.getElementById("second").value;
 
-    function show() {
+            document.getElementById("topicHead").innerHTML =
+                "<h3 style='text-align:center;paddding-left:2em'><i>โอ้เจ้าดอก" + getTopic + " , ฉันเคยเด็ด</i></h3>"
 
+            // document.getElementById("progress").innerHTML =
+            //     `<div class="progress" >
+            //                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+            //                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>`
+        }
 
+        function pickMe() {
+            if (count == 0) {
+                document.getElementById("progress").innerHTML =
+                    `<div class="progress" >
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                            aria-valuenow="${(num*100)/max_value}" aria-valuemin="0" aria-valuemax="100" style="width: ${(num*100)/max_value}%"></div></div>`
+                document.getElementById("maintext").innerHTML = document.getElementById("first").value;
+                count++;
+                num--;
+            } else {
+                document.getElementById("progress").innerHTML =
+                    `<div class="progress" >
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                            aria-valuenow="${(num*100)/max_value}" aria-valuemin="0" aria-valuemax="100" style="width: ${(num*100)/max_value}%"></div></div>`
+                document.getElementById("maintext").innerHTML = document.getElementById("second").value;
+                count = 0;
+                num--;
 
-        thing_list.push(strUser);
+            }
+            if (num == 0) {
+                console.log(document.getElementById("maintext").innerHTML);
+                document.getElementById("sum").innerHTML = `<b>"` + document.getElementById("maintext").innerHTML +
+                    `"</b>`;
+                document.getElementById("topicSum").innerHTML = `<b>` + document.getElementById("topic").value + `</b>`;
 
-
-        i++;
-        document.getElementById("amount-item").innerHTML = `ใบระกามี ${i} item`
-
-
-    }
-
-    function deleteList(index) {
-        remove = thing_list.splice(index, 1);
-
-    }
-
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyCFTQN3huItdsXgdtMDFQTUa8zIGkKdsQ8",
-        authDomain: "my-notibag.firebaseapp.com",
-        databaseURL: "https://my-notibag.firebaseio.com",
-        projectId: "my-notibag",
-        storageBucket: "my-notibag.appspot.com",
-        messagingSenderId: "210841539241",
-        appId: "1:210841539241:web:01ae9b2d14b907dbb10fb8"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    const db = firebase.firestore();
-
-    // //สำหรับการ upload
-    // db.collection("store").add({
-    //     nameBag: "aaa",
-    //     desc: "bbb",
-    // });
-
-    //สำหรับการ dowload
-    db.collection('store').get().then(snapshot => {
-        snapshot.forEach(doc => {
-            console.log(doc.data().nameBag)
-        });
-    });
-
-    var selectedFile;
-    //สำหรับ upload รูปภาพ
-    function uploadPic() {
-        var pic = document.getElementById("photo");
-        selectedFile = pic.files[0];
-
-        document.getElementById('submit_link').setAttribute('disabled', 'true');
-        myfunction();
-
-        alert("Add Complete!");
-    }
-
-    function myfunction() {
-        var name = document.getElementById("photo").files.item(0).name;
-        var storageRef = firebase.storage().ref('/images/' + name);
-        var uploadTask = storageRef.put(selectedFile);
-        uploadTask.on('state_changed', function (snapshot) {
-            var progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            // var uploader = document.getElementById('uploader');
-            // uploader.value = progress;
-            switch (snapshot.state) {
-                case firebase.storage.TaskState.PAUSED:
-                    console.log('Upload is paused');
-                    break;
-                case firebase.storage.TaskState.RUNNING:
-                    console.log('Upload is running');
-                    break;
+                alert(document.getElementById("maintext").innerHTML);
+                mockupClick('page-ranking', 'page-end');
             }
 
-        }, function (error) {
-            console.log(error);
-        }, function () {
-            uploadTask.snapshot.ref.getDownloadURL().then(
-                function (downloadURL) {
-                    document.getElementById('submit_link').removeAttribute('disabled');
-                    var nameBag = document.getElementById('nameBag').value;
-                    var pic = downloadURL;
+        }
 
-                    // เพิ่มข้อมูลลง firebase
-                    db.collection("store").add({
-                        nameBag: nameBag,
-                        pic: pic,
-                        access: false
-                    });
-                    // สำหรับการ download
-                    db.collection('store').get().then(snapshot => {
-                        snapshot.forEach(doc => {
-                            nameBag = doc.data().nameBag
-                            pic = doc.data().pic
-                        });
-                    });
+        function randomTimes() {
+            console.log(Math.floor((Math.random() * 20) + 1));
+            return Math.floor((Math.random() * 20) + 1);
 
-                    // เพิ่มกระเป๋า
-                    document.getElementById("addkapao").innerHTML += `<div class="column">
-                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
-                            <img src="${pic}" width="100" height="100" style="border-radius: 50%"></img>
-                            <p class="content" id="amount-item">${nameBag}</p>
-                        </div>
-                    </div>`
-                });
-        });
+        }
 
-    };
-</script>
+        function setRandomColor() {
+            console.log(color_list[Math.floor((Math.random() * 5) + 1)])
+            rand = Math.floor((Math.random() * 5) + 1)
+            $("#page-ranking").css("background", 'rgba(77, 157, 224, 0.4)');
+
+        }
+
+        function getRandomColor() {
+
+            console.log(color_list[Math.floor((Math.random() * 5) + 1)])
+
+            return 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%,' + color_list[Math.floor((Math.random() *
+                6) + 1)] + ' 100%, url("https://i.pinimg.com/564x/64/2d/8e/642d8e859f36f971202ccbd8a8f54e77.jpg");';
+
+
+        }
+    </script>
+</body>
 
 </html>

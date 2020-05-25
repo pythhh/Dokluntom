@@ -1,0 +1,402 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotiBag!</title>
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/100/000000/shopping-bag.png">
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+
+</head>
+
+<body>
+    <mobile>
+
+        <div class='mobile-container'>
+            <nav style="margin-bottom: .5em;">NOTIBAG</nav>
+            <br>
+            <div id="selection">
+                <div class="ui two column grid">
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('selection','page-intro')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content">Bag</p>
+                        </div>
+
+                    </div>
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('selection','list-bag')">
+                            <i class="circular big inverted yellow list icon"></i>
+                            <p class="content">Item list</p>
+                        </div>
+                    </div>
+                    <!-- <div class="column">
+                        <input type="text" id="nameBag">
+                        <button onclick="upload()">แง</button>
+                    </div> -->
+                </div>
+            </div>
+            <div id="page-intro">
+
+                <div class="ui one column grid">
+                    <div class="column">
+                        <div class="ui segment" onclick="mockupClick('page-intro','addbag')">
+                            <i class="circular big inverted yellow shopping plus icon"></i>
+                            <p class="content">เพิ่มกระเป๋า</p>
+                        </div>
+                    </div>
+                    <div class="column">
+
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <i class="circular big inverted yellow suitcase icon"></i>
+                            <p class="content" id="amount-item">ใบระกา</p>
+                        </div>
+
+                    </div>
+
+                    <div class="column" id="addkapao">
+
+                    </div>
+
+
+                </div>
+                <br>
+                <div class="ui animated button" tabindex="0">
+                    <div class="visible content" onclick="mockupClick('page-intro','selection')">Back</div>
+                    <div class="hidden content" onclick="mockupClick('page-intro','selection')">
+                        <i class="left arrow icon" onclick="notiChange()"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="page-desc">
+                <div class="ui two column grid">
+                    <div class="column">
+                        <div>
+                            <i class="bordered inverted huge yellow suitcase icon"></i>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui inverted segment secondary">
+                            <p>ใบระกา</p>
+                        </div>
+                        <p>ช็อปปิ้งเซนเซอร์แพนดาแอดมิชชั่นจิ๊กซอว์</p>
+                    </div>
+                </div>
+                <div class="ui">
+                    <div class="column">
+                        <div class="ui one column grid">
+                            <div class="column">
+
+                                <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">
+                                    List</h3>
+                            </div>
+
+                        </div>
+                        <p id="bag-desc"></p>
+
+                        <br>
+
+
+                    </div>
+                </div>
+
+                <br>
+                <div class="ui animated button" tabindex="0">
+                    <div class="visible content" onclick="mockupClick('page-desc','page-intro')">Back</div>
+                    <div class="hidden content" onclick="mockupClick('page-desc','page-intro')">
+                        <i class="left arrow icon" onclick="notiChange()"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="addbag">
+                <div class="ui one column grid">
+                    <div class="column">
+                        <i class="bordered inverted huge yellow plus icon"></i>
+                    </div>
+                    <div class="column">
+                        <input id="photo" class="file" type="file" name="mainimage" value="">
+                    </div>
+                </div>
+                <br>
+                <div class="column">
+                    <div class="ui fluid input focus">
+                        <input type="text" placeholder="ชื่อกระเป๋า" id="nameBag" value="">
+                    </div>
+                </div>
+
+                <div class="column">
+                    <br>
+                    <button id="submit_link" type="submit" class="ui center floated button"
+                        onclick="uploadPic()">Add</button>
+                    <button id="submit_link" type="submit" class="ui center floated button"
+                        onclick="mockupClick('addbag','page-intro')">Back</button>
+                </div>
+
+            </div>
+            <div id="list-bag">
+                <div class="column">
+                    <div class="ui two column grid">
+                        <div class="twelve wide column">
+
+                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Item
+                                List</h3>
+                        </div>
+                        <div class="four wide column">
+                            <button class="circular ui icon button black" onclick="mockupClick('list-bag', 'add-list')">
+                                <i class="icon add white"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p id="thing"></p>
+
+                    <br>
+
+
+                </div>
+                <div class="column">
+                    <div class="ui animated button" tabindex="0" onclick="mockupClick('list-bag','selection')">
+                        <div class="visible content">Back</div>
+                        <div class="hidden content">
+                            <i class="left arrow icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="add-list">
+                <div class="ui one column grid">
+                    <div class="column">
+                        <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">Add item
+                        </h3>
+                        <div class="ui form">
+                            <div class="field">
+                                <select id="allItems">
+                                    <option value="โทรศัพท์">โทรศัพท์</option>
+                                    <option value="ปากกา signo RT 0.38">ปากกา signo RT 0.38</option>
+                                    <option value="ลิปมัน">ลิปมัน</option>
+                                    <option value="ลิปสติก ปากไม่แดงไม่มีแรงเดิน">ลิปสติก ปากไม่แดงไม่มีแรงเดิน</option>
+                                    <option value="ถุง">ถุง</option>
+                                    <option value="กระเป๋าตัง">กระเป๋าตัง</option>
+                                    <option value="หูฟัง">หูฟัง</option>
+                                    <option value="กล่องแว่น">กล่องแว่น</option>
+                                    <option value="ยาพ่น">ยาพ่น</option>
+                                    <option value="พวงกุญแจ">พวงกุญแจ</option>
+                                </select>
+                            </div>
+                            <h3 class="ui header" style="text-align: left;padding-left: 1em;padding-top: 0.5em;">
+                                Priority of this item
+                            </h3>
+                            <div class="grouped fields" id="priority">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="color" tabindex="0" value="red">
+                                        <label>สำคัญมาก ห้ามลืมเด็ดขาด !</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="color" tabindex="0" value="yellow">
+                                        <label>ลืมได้ แต่ไม่ลืมจะดีกว่า ;_;</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="color" tabindex="0" value="green">
+                                        <label>ไม่ค่อยจำเป็นเท่าไร มีเป็นพ้อบเฉยๆ</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="ui button" tabindex="0" onclick="addItem()">Add</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <nav id="footer">
+
+            </nav>
+        </footer>
+    </mobile>
+    <script>
+        function mockupClick(pageToHide, pageToShow) {
+            document.querySelector('#' + pageToHide).style.display = "none";
+            document.querySelector('#' + pageToShow).style.display = "block";
+        }
+    </script>
+</body>
+
+<script>
+    var i = 0;
+    var bag = "ใบระกา";
+    if (localStorage.getItem("thing_list") == null) {
+        localStorage.setItem("thing_list", "[]")
+    }
+    thing_list = JSON.parse(localStorage.thing_list);
+    displayItem();
+
+    function displayItem() {
+        document.getElementById("thing").innerHTML = "";
+        let i = 1;
+        for (item of thing_list) {
+            document.getElementById("thing").innerHTML += `<div class="ui two column grid secondary inverted orange segment" ondblclick="removeItem(${i-1})">
+                        <div class="column">
+                            <p style="text-align: left;padding-left: 1em;">${item}</p>
+                        </div>
+                    </div>`;
+            i++;
+
+        }
+        localStorage.setItem("thing_list", JSON.stringify(thing_list));
+
+    }
+
+    function addItem() {
+        var get_item = document.getElementById("allItems");
+        var color = document.querySelector('input[name=color]:checked').value;
+
+        var item_add = get_item.options[get_item.selectedIndex].value;
+        if (item_add != null) {
+            thing_list.push(item_add)
+            console.log(thing_list);
+            displayItem();
+        }
+        alert("Add Complete!");
+        mockupClick('add-list', 'list-bag')
+    }
+
+    function removeItem(index) {
+        remove = thing_list.splice(index, 1);
+        displayItem();
+    }
+
+    function show() {
+
+
+
+        thing_list.push(strUser);
+
+
+        i++;
+        document.getElementById("amount-item").innerHTML = `ใบระกามี ${i} item`
+
+
+    }
+
+    function deleteList(index) {
+        remove = thing_list.splice(index, 1);
+
+    }
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCFTQN3huItdsXgdtMDFQTUa8zIGkKdsQ8",
+        authDomain: "my-notibag.firebaseapp.com",
+        databaseURL: "https://my-notibag.firebaseio.com",
+        projectId: "my-notibag",
+        storageBucket: "my-notibag.appspot.com",
+        messagingSenderId: "210841539241",
+        appId: "1:210841539241:web:01ae9b2d14b907dbb10fb8"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    // //สำหรับการ upload
+    // db.collection("store").add({
+    //     nameBag: "aaa",
+    //     desc: "bbb",
+    // });
+
+    //สำหรับการ dowload
+    db.collection('store').get().then(snapshot => {
+        snapshot.forEach(doc => {
+            console.log(doc.data().nameBag)
+        });
+    });
+
+    var selectedFile;
+    //สำหรับ upload รูปภาพ
+    function uploadPic() {
+        var pic = document.getElementById("photo");
+        selectedFile = pic.files[0];
+
+        document.getElementById('submit_link').setAttribute('disabled', 'true');
+        myfunction();
+
+        alert("Add Complete!");
+    }
+
+    function myfunction() {
+        var name = document.getElementById("photo").files.item(0).name;
+        var storageRef = firebase.storage().ref('/images/' + name);
+        var uploadTask = storageRef.put(selectedFile);
+        uploadTask.on('state_changed', function (snapshot) {
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            // var uploader = document.getElementById('uploader');
+            // uploader.value = progress;
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED:
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING:
+                    console.log('Upload is running');
+                    break;
+            }
+
+        }, function (error) {
+            console.log(error);
+        }, function () {
+            uploadTask.snapshot.ref.getDownloadURL().then(
+                function (downloadURL) {
+                    document.getElementById('submit_link').removeAttribute('disabled');
+                    var nameBag = document.getElementById('nameBag').value;
+                    var pic = downloadURL;
+
+                    // เพิ่มข้อมูลลง firebase
+                    db.collection("store").add({
+                        nameBag: nameBag,
+                        pic: pic,
+                        access: false
+                    });
+                    // สำหรับการ download
+                    db.collection('store').get().then(snapshot => {
+                        snapshot.forEach(doc => {
+                            nameBag = doc.data().nameBag
+                            pic = doc.data().pic
+                        });
+                    });
+
+                    // เพิ่มกระเป๋า
+                    document.getElementById("addkapao").innerHTML += `<div class="column">
+                        <div class="ui segment" onclick="mockupClick('page-intro','page-desc')">
+                            <img src="${pic}" width="100" height="100" style="border-radius: 50%"></img>
+                            <p class="content" id="amount-item">${nameBag}</p>
+                        </div>
+                    </div>`
+                });
+        });
+
+    };
+</script>
+
+</html>
