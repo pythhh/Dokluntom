@@ -1,0 +1,176 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        body {
+            padding: 1em;
+            background: #666;
+            font-family: sans-serif;
+        }
+
+        mobile {
+            display: flex;
+            flex-flow: column nowrap;
+            background: white;
+            margin: auto;
+            width: 414px;
+            height: 736px;
+            box-shadow: 0px 12px 24px #0004;
+        }
+
+        .mobile-status-bar img {
+            width: 100%;
+        }
+
+        .mobile-container {
+            height: 100%;
+            overflow: auto;
+        }
+
+        nav {
+            background: purple;
+            color: white;
+            text-align: center;
+            padding: .5em;
+        }
+
+        .page {
+            padding: 1em;
+        }
+
+        textarea {
+            width: 100%;
+            border-radius: .3em;
+            font-size: 1rem;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: purple;
+            border-radius: .3em;
+            font-size: 1rem;
+            color: white;
+            width: 100%;
+            padding: 1em;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        input {
+            width: 100%;
+            border-radius: .3em;
+            font-size: 1rem;
+            padding: 1em .5em;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            margin-bottom: 1em;
+        }
+
+        button.score {
+            width: 48%;
+            display: inline-block;
+            margin: 2px 0;
+        }
+
+        #page-ranking,
+        #page-first {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <mobile>
+        <div class="mobile-status-bar">
+            <img src="https://i.imgur.com/XSqz2K4.png" alt="">
+        </div>
+        <div class='mobile-container'>
+            <nav>StudScore</nav>
+            <div id="page-setting" class="page">
+                <h2>ชื่อApp</h2>
+                <button onclick="mockupClick('page-setting','page-first')">Start</button>
+            </div>
+            <div id="page-first" class="page">
+                <h2>Topic</h2>
+                <input type="text" placeholder="Insert name" rows="10" id="topic"></input>
+                <h2>Choice 1st</h2>
+                <input type="text" placeholder="Insert name" rows="10" id="first"></input>
+                <h2>Choice 2nd</h2>
+                <input type="text" placeholder="Insert name" rows="10" id="second"></input>
+                <button onclick="saveChoice()">Next</button>
+            </div>
+
+            <div id="page-ranking" class="page" onclick="pickMe()">
+                <h2 id="topicHead">Topic</h2>
+                <h1 id="maintext">click to start</h1>
+                Chioce
+                <h2 id="randomnum"></h2>
+            </div>
+
+            <!-- <div id="page-findbyID" class="page">
+              <h2>Find by ID</h2>
+              <input type="text">
+              <button>Go</button>
+          </div>
+          
+          <div id="page-scoring" class="page">
+              <h2>Select Score</h2>
+            <h3>61070036 อันนา</h3>
+            <button class="score">5</button>
+            <button class="score">10</button>
+            <button class="score">20</button>
+            <button class="score">50</button>
+          </div> -->
+        </div>
+    </mobile>
+    <script>
+        var getTopic, getFirst, getSecond, count = 0,
+            num = randomTimes();
+
+        function mockupClick(pageToHide, pageToShow) {
+            document.querySelector('#' + pageToHide).style.display = "none";
+            document.querySelector('#' + pageToShow).style.display = "block";
+        }
+
+        function saveChoice() {
+            var getTopic = document.getElementById("topic").value;
+            var getFirst = document.getElementById("first").value;
+            var getSecond = document.getElementById("second").value;
+            document.getElementById("randomnum").innerHTML = num;
+            $("#topicHead").append("<h2>" + getTopic + "</h2>");
+
+        }
+
+        function pickMe() {
+            console.log(getFirst)
+
+            if (count == 0) {
+                document.getElementById("maintext").innerHTML = document.getElementById("first").value;
+                count++;
+                num--;
+            } else {
+
+                document.getElementById("maintext").innerHTML = document.getElementById("second").value;
+                count = 0;
+                num--;
+            }
+            if (num == 0) {
+                console.log(document.getElementById("maintext").innerHTML);
+                alert(document.getElementById("maintext").innerHTML);
+            }
+            document.getElementById("randomnum").innerHTML = num;
+        }
+
+        function randomTimes() {
+
+            return Math.floor(Math.random() * (25 - 10 + 1) + 10);
+        }
+    </script>
+</body>
+
+</html>
