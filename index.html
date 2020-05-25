@@ -163,33 +163,33 @@
                 </div>
 
                 <div id="page-first" class="page text-center">
-                    
-                        <div class="form-group">
-                            <label for="" style="font-size:1.5em;text-align: center;padding-top: 5em;"
+
+                    <div class="form-group">
+                        <label for="" style="font-size:1.5em;text-align: center;padding-top: 5em;"
                             class="col-form-label"><i>โอ้เจ้าดอก</i></label>
 
-                        <input type="text" class="form-control" placeholder="สิ่งที่ตัดสินใจไม่ได้"
-                            id="topic" required></input>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <label class="col-md col-form-label">กลีบนี้แทน</label>
-                            <input type="text" class="form-control" id="first" placeholder="รัก" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-form-label">กลีบนั้นแทน</label>
+                        <input type="text" class="form-control" placeholder="สิ่งที่ตัดสินใจไม่ได้" id="topic"
+                            required></input>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-md col-form-label">กลีบนี้แทน</label>
+                        <input type="text" class="form-control" id="first" placeholder="รัก" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 col-form-label">กลีบนั้นแทน</label>
 
-                            <input type="text" class="form-control" id="second" placeholder="ไม่รัก" required>
-                        </div>
-                    
-                        <button onclick="saveChoice()"
-                            class="btn btn-warning btn-md btn-block" type="submit">PICK IT UP!</button>
-                   
+                        <input type="text" class="form-control" id="second" placeholder="ไม่รัก" required>
+                    </div>
+
+                    <button onclick="saveChoice()" class="btn btn-warning btn-md btn-block" type="submit">PICK IT
+                        UP!</button>
+
                 </div>
             </div>
             <div id="page-ranking" class="page" onclick="pickMe(), setRandomColor()"
                 style="height: 100%;padding-left:1em;">
-                <div style="padding-top: 10em;text-align: center;" id="text-random">
+                <div style="padding-top: 8em;text-align: center;" id="text-random">
                     <div class="row justify-content-md-center">
                         <h2 id="topicHead">Topic</h2>
                     </div>
@@ -203,12 +203,16 @@
 
                     </div>
                     <div class="row justify-content-md-center" style="padding-top: 1em;">
-                        <p><i>ฉันเคยเด็ดเล่น<br>เด็ดเช้าเด็ดเย็น<br>ฉันเคยเด็ดเล่น<br>เด็ดดม เด็ดดม</i></p>
+                        <p><i>ฉันเคยเด็ดเล่น<br>เด็ดเช้าเด็ดเย็น<br>ฉันเคยเด็ดเล่น<br>เด็ดดม(x2)</i></p>
+                        
                     </div>
-                    <footer style="padding-top: 3em;" id="progress">
-                        <i>สัมผัสเพื่อทำการเด็ดกลีบ
+                    <div class="row justify-content-md-center" style="padding-top: 1em;">
+                        <p>
+                            <i>สัมผัสเพื่อทำการเด็ดกลีบ</i>
+                        </p>
+                    </div>
+                    <footer style="padding-top: 1em;" id="progress">
 
-                        </i>
                     </footer>
 
 
@@ -256,11 +260,10 @@
     <script>
         var getTopic, getFirst, getSecond, count = 0,
             num = randomTimes(),
-            max_value = num;
-        var color_list = ['rgba(77, 157, 224, 0.4)', 'rgba(225, 85, 84, 0.4)', 'rgba(59, 178, 115, 0.4)',
-            'rgba(160, 146, 198, 0.4)', 'rgba(255, 210, 137, 0.4)', 'rgba(131, 144, 250, 0.4)'
-        ]
-       
+            max_value = num,
+            count_col = 0;
+
+
         function mockupClick(pageToHide, pageToShow) {
             document.querySelector('#' + pageToHide).style.display = "none";
             document.querySelector('#' + pageToShow).style.display = "block";
@@ -294,13 +297,13 @@
             var getFirst = document.getElementById("first").value;
             var getSecond = document.getElementById("second").value;
 
-            if(getTopic == "" || getFirst == "" || getSecond == ""){
+            if (getTopic == "" || getFirst == "" || getSecond == "") {
                 alert('กรุณากรอกข้อมูลให้ครบ');
             } else {
-                mockupClick('page-first','page-ranking')
+                mockupClick('page-first', 'page-ranking')
             }
             document.getElementById("topicHead").innerHTML =
-                "<h3 style='text-align:center;paddding-left:2em'><i>โอ้เจ้าดอก" + getTopic + " , ฉันเคยเด็ด</i></h3>"
+                "<h3 style='text-align:center;paddding-left:2em'><i>โอ้เจ้าดอก" + getTopic + "<br>ฉันเคยเด็ด</i></h3>"
 
             // document.getElementById("progress").innerHTML =
             //     `<div class="progress" >
@@ -333,7 +336,7 @@
                     `"</b>`;
                 document.getElementById("topicSum").innerHTML = `<b>` + document.getElementById("topic").value + `</b>`;
 
-                alert(document.getElementById("maintext").innerHTML);
+
                 mockupClick('page-ranking', 'page-end');
             }
 
@@ -346,18 +349,26 @@
         }
 
         function setRandomColor() {
-            console.log(color_list[Math.floor((Math.random() * 5) + 1)])
-            rand = Math.floor((Math.random() * 5) + 1)
-            $("#page-ranking").css("background", 'rgba(77, 157, 224, 0.4)');
 
-        }
-
-        function getRandomColor() {
-
-            console.log(color_list[Math.floor((Math.random() * 5) + 1)])
-
-            return 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%,' + color_list[Math.floor((Math.random() *
-                6) + 1)] + ' 100%, url("https://i.pinimg.com/564x/64/2d/8e/642d8e859f36f971202ccbd8a8f54e77.jpg");';
+            if (count_col == 0) {
+                $("#page-ranking").css("background", 'rgba(230, 57, 70,0.5)');
+                count_col++;
+            } else if (count_col == 1) {
+                $("#page-ranking").css("background", 'rgba(244, 244, 248,0.5)');
+                count_col++;
+            } else if (count_col == 2) {
+                $("#page-ranking").css("background", 'rgba(155, 246, 255,0.5)');
+                count_col++;
+            } else if (count_col == 3) {
+                $("#page-ranking").css("background", 'rgba(252, 243, 0,0.5)');
+                count_col++;
+            } else if (count_col == 4) {
+                $("#page-ranking").css("background", 'rgba(255, 198, 255,0.5)');
+                count_col++;
+            } else if (count_col == 5) {
+                $("#page-ranking").css("background", 'rgba(202, 255, 191,0.5)');
+                count_col = 0;
+            }
 
 
         }
